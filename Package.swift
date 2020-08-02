@@ -11,9 +11,9 @@ let package = Package(
 		.library(name: "PerfectHTTPServer", targets: ["PerfectHTTPServer"])
 	],
 	dependencies: [
-        .package(url: "https://github.com/123FLO321/Perfect-Net.git", .branch("swift5")),
-		.package(url: "https://github.com/123FLO321/Perfect-HTTP.git", .branch("swift5")),
-		.package(url: "https://github.com/123FLO321/Perfect-CZlib-src.git", .branch("swift5"))
+        .package(name: "PerfectNet", url: "https://github.com/123FLO321/Perfect-Net.git", .branch("swift5")),
+        .package(name: "PerfectHTTP", url: "https://github.com/123FLO321/Perfect-HTTP.git", .branch("swift5")),
+        .package(name: "PerfectCZlib", url: "https://github.com/123FLO321/Perfect-CZlib-src.git", .branch("swift5"))
 	],
 	targets: [
 		.target(name: "PerfectCHTTPParser", dependencies: []),
