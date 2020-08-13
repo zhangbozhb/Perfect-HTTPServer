@@ -46,7 +46,15 @@ class HTTP11Response: HTTPResponse {
     var isStreaming = false
     var wroteHeaders = false
 	var contentLengthSet = false
-    var completedCallback: (() -> ())?
+    var _completedCallback: (() -> ())?
+    let _completedCallbackLock = Threading.Lock()
+    var completedCallback: (() -> ())? {
+        get {
+            _completedCallbackLock.doWithLock(closure: { self._completedCallback })
+        } set {
+            _completedCallbackLock.doWithLock(closure: { self._completedCallback = newValue })
+        }
+    }
     let request: HTTPRequest
 	var handlers: IndexingIterator<[RequestHandler]>?
 	

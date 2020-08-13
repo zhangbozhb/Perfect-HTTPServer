@@ -291,11 +291,9 @@ public class HTTPServer: ServerInstance {
 		let response = HTTP11Response(request: request, filters: responseFilters.isEmpty ? nil : responseFilters.makeIterator())
 		if response.isKeepAlive {
 			response.completedCallback = { [weak self] in
-				if let `self` = self {
-					netHandleQueue.async {
-						self.handleConnection(net)
-					}
-				}
+                netHandleQueue.async {
+                    self?.handleConnection(net)
+                }
 			}
 		}
 		let oldCompletion = response.completedCallback

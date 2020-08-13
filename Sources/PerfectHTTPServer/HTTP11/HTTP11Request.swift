@@ -90,7 +90,15 @@ class HTTP11Request: HTTPRequest {
 	var serverName = ""
 	var documentRoot = "./webroot"
 	var urlVariables = [String:String]()
-	var scratchPad = [String:Any]()
+    private var _scratchPad = [String:Any]()
+    private let _scratchPadLock = Threading.RWLock()
+    var scratchPad: [String:Any] {
+        get {
+            _scratchPadLock.doWithReadLock(closure: { self._scratchPad })
+        } set {
+            _scratchPadLock.doWithWriteLock(closure: { self._scratchPad = newValue })
+        }
+    }
 	
 	private var headerStore = Dictionary<HTTPRequestHeader.Name, [UInt8]>()
 	
